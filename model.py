@@ -672,7 +672,7 @@ class SteadyStateNoDuplicatesReplacer(Replacer):
         return self.next_gen
 
 
-def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, evap_rate, beta_evap, crossover_prob, mutation_prob, reduce_clusters, kmeans_iterations, squared_dist, time_limit):
+def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, evap_rate, beta_evap, crossover_prob, mutation_prob, reduce_clusters, kmeans_iterations, squared_dist, time_limit, verbose=False):
     """
     This is our solver for the vehicle routing problem.
 
@@ -705,45 +705,47 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
     population = initializer.initialize(pop_size)
 
     print("Initial Population:")
-    for i in range(len(population)):
-        print(population[i].fitness)
+    print([chrom.fitness for chrom in population])
 
     current_time = time.time()
     best = []
     mean = []
 
-    print(time_limit)
     while time.time() - current_time < time_limit:
 
         selector = TournamentSelector(selection_size, tournament_size)
         mating_pool = selector.select(population)
 
-        print("Mating Pool:")
-        for i in range(len(mating_pool)):
-            print(mating_pool[i].fitness)
+        if verbose:
+            print("Mating Pool:")
+            for i in range(len(mating_pool)):
+                print(mating_pool[i].fitness)
 
         recombiner = UniformRecombiner(crossover_prob, fitness, demand)
         offspring = recombiner.recombine(mating_pool)
 
-        print("Offspring:")
-        for i in range(len(offspring)):
-            print(offspring[i].fitness)
+        if verbose:
+            print("Offspring:")
+            for i in range(len(offspring)):
+                print(offspring[i].fitness)
 
         mutator = BitFlipMutator(mutation_prob, fitness, demand, len(capacity))
         # mutator.mutate(offspring)
         mutator.steady_mutate(offspring)
 
-        print("Mutated Offspring")
-        for i in range(len(offspring)):
-            print(offspring[i].fitness)
+        if verbose:
+            print("Mutated Offspring")
+            for i in range(len(offspring)):
+                print(offspring[i].fitness)
 
         # replacer = SteadyStateReplacer(steady_state_n, initializer)
         replacer = SteadyStateNoDuplicatesReplacer(steady_state_n, initializer)
         population = replacer.replace(population, offspring)
 
-        print("New Population:")
-        for i in range(len(population)):
-            print(population[i].fitness)
+        if verbose:
+            print("New Population:")
+            for i in range(len(population)):
+                print(population[i].fitness)
 
         best_pop = 0
         mean_pop = 0
