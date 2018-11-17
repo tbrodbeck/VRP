@@ -7,10 +7,10 @@ from collections import OrderedDict
 from model import VRP
 
 
-''' HYPERPARAMETERS'''
+''' HYPERPARAMETERS '''
 
 run = 'test2'
-use_grid = True
+use_ikw_grid = True
 
 
 ''' SEARCH CONFIGURATION '''
