@@ -13,24 +13,7 @@ run = 'test2'
 use_grid = True
 
 
-''' SEARCH DICTIONARIES '''
-
-heuristic_test = [
-    'scenario', [1, 2],
-    'heuristic', [False, True],
-    'pop_size', [12],
-    'selection_size', [2],
-    'aco_iterations', [10],
-    'beta', [1],
-    'evap_rate', [.1],
-    'beta_evap', [0],
-    'crossover_prob', [0.05, 0.2],
-    'mutation_prob', [0.05, 0.1],
-    'reduce_clusters', [0],
-    'kmeans_iterations', [10],
-    'squared_dist', [True],
-    'time_limit', [600]
-]
+''' SEARCH CONFIGURATION '''
 
 test2 = [
     'scenario', [1, 2],
@@ -49,9 +32,27 @@ test2 = [
     'time_limit', [600]
 ]
 
+heuristic_test = [
+    'scenario', [1, 2],
+    'heuristic', [False, True],
+    'pop_size', [12],
+    'selection_size', [2],
+    'aco_iterations', [10],
+    'beta', [1],
+    'evap_rate', [.1],
+    'beta_evap', [0],
+    'crossover_prob', [0.05, 0.2],
+    'mutation_prob', [0.05, 0.1],
+    'reduce_clusters', [0],
+    'kmeans_iterations', [10],
+    'squared_dist', [True],
+    'time_limit', [600]
+]
+
 
 ''' SEARCH FUNCTIONS '''
 
+# retrieving dict by run name
 input_dict = globals()[run]
 
 def create_dict(list_dict):
