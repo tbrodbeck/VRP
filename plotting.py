@@ -13,7 +13,7 @@ run_name = 'heuristic_test'
 grid_param = 'scenario'
 
 
-''' BACKEND '''
+''' PLOT FUNCTIONS '''
 
 def get_test(param):
     """

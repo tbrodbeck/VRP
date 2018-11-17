@@ -12,6 +12,9 @@ from model import VRP
 run = 'test2'
 use_grid = True
 
+
+''' SEARCH DICTIONARIES '''
+
 heuristic_test = [
     'scenario', [1, 2],
     'heuristic', [False, True],
@@ -45,6 +48,9 @@ test2 = [
     'squared_dist', [True],
     'time_limit', [600]
 ]
+
+
+''' SEARCH FUNCTIONS '''
 
 input_dict = globals()[run]
 
