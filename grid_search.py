@@ -10,6 +10,7 @@ from model import VRP
 ''' HYPERPARAMETERS'''
 
 run = 'test2'
+use_grid = True
 
 heuristic_test = [
     'scenario', [1, 2],
@@ -46,7 +47,6 @@ test2 = [
 ]
 
 input_dict = globals()[run]
-use_grid = True
 
 def create_dict(list_dict):
     """
