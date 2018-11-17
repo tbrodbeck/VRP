@@ -705,7 +705,7 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
     population = initializer.initialize(pop_size)
 
     print("Initial Population:")
-    print([chrom.fitness for chrom in population])
+    print([chromo.fitness for chromo in population])
 
     current_time = time.time()
     best = []

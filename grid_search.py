@@ -1,47 +1,70 @@
 import csv
 import itertools
 import numpy as np
+import pickle
+from collections import OrderedDict
 
 from model import VRP
-
 
 
 run_name = 'heuristic_test'
 
 ''' HYPERPARAMETERS'''
 
-test_heuristic = {
-    'scenario': [1, 2],
-    'heuristic': [False, True],
-    'pop_size': [12],
-    'selection_size': [2],
-    'aco_iterations': [10],
-    'beta': [1],
-    'evap_rate': [.1],
-    'beta_evap': [0],
-    'crossover_prob': [0.05, 0.2],
-    'mutation_prob': [0.05, 0.1],
-    'reduce_clusters': [0],
-    'kmeans_iterations': [10],
-    'squared_dist': [True],
-    'time_limit': [600]
-}
+test_heuristic = [
+    'scenario', [1, 2],
+    'heuristic', [False, True],
+    'pop_size', [12],
+    'selection_size', [2],
+    'aco_iterations', [10],
+    'beta', [1],
+    'evap_rate', [.1],
+    'beta_evap', [0],
+    'crossover_prob', [0.05, 0.2],
+    'mutation_prob', [0.05, 0.1],
+    'reduce_clusters', [0],
+    'kmeans_iterations', [10],
+    'squared_dist', [True],
+    'time_limit', [600]
+]
 
-test_other = {
-    'scenario': [1, 2],
-    'heuristic': [True],
-    'pop_size': [10, 14],
-    'selection_size': [2, 4],
-    'aco_iterations': [15, 25],
-    'crossover_prob': [0.1, 0.2],
-    'mutation_prob': [0.05, 0.1],
-    'reduce_clusters': [0, 4],
-    'kmeans_iterations': [10, 20]
-}
+test_other = [
+    'scenario', [1, 2],
+    'heuristic', [True],
+    'pop_size', [10, 14],
+    'selection_size', [2, 4],
+    'aco_iterations', [15, 25],
+    'crossover_prob', [0.1, 0.2],
+    'mutation_prob', [0.05, 0.1],
+    'reduce_clusters', [0, 4],
+    'kmeans_iterations', [10, 20]
+]
 
-def gridsearch(dict):
+def create_dict(list_dict):
+    """
+    Creating a dict from the list-dict
+    """
+    # True if done with one key-value pair
+    done = False
+    name = ''
+    dict = {}
+    for elem in list_dict:
+        if done == False:
+            name = elem
+            done = True
+            continue
+        if done == True:
+            dict[name] = elem
+            done = False
+            continue
+    return dict
+
+def gridsearch(dict_list):
+
+    dict = create_dict(dict_list)
 
     # creating cartesian product of the dictionary as 2D-list
+    # 1.: create a list of all parameters without dictionary names
     iteration = []
     for i, entry in enumerate(dict):
         values = []
@@ -56,12 +79,12 @@ def gridsearch(dict):
     # deploying all permutations
     print('All permutations of test-parameters:')
     nr_of_perms = 0
-    with open('./results/' + run_name + '_params.csv', 'w') as csvfile:
-        writer = csv.writer(csvfile)
-        for v in (itertools.product(*iteration)):
-            print(v)
-            writer.writerow(v)
-            nr_of_perms += 1
+    for v in (itertools.product(*iteration)):
+        print(v)
+        nr_of_perms += 1
+    with open('./results/' + run_name + '.pickle', 'wb') as f:
+        pickle.dump(dict_list, f)
+
 
     count = 0
     for v in (itertools.product(*iteration)):
