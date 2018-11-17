@@ -7,9 +7,9 @@ from collections import OrderedDict
 from model import VRP
 
 
-run_name = 'heuristic_test'
-
 ''' HYPERPARAMETERS'''
+
+run_name = 'test2'
 
 test_heuristic = [
     'scenario', [1, 2],
