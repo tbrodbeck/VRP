@@ -2,6 +2,7 @@ import csv
 import itertools
 import numpy as np
 import pickle
+import sys
 
 from model import VRP
 
@@ -9,7 +10,6 @@ from model import VRP
 ''' HYPERPARAMETERS '''
 
 run = 'test2'
-use_ikw_grid = False
 
 
 ''' SEARCH CONFIGURATION '''
@@ -28,7 +28,7 @@ test2 = [
     'reduce_clusters', [0, 4],
     'kmeans_iterations', [10, 20],
     'squared_dist', [True],
-    'time_limit', [600]
+    'time_limit', [20] # in minutes
 ]
 
 heuristic_test = [
@@ -45,7 +45,7 @@ heuristic_test = [
     'reduce_clusters', [0],
     'kmeans_iterations', [10],
     'squared_dist', [True],
-    'time_limit', [600]
+    'time_limit', [20] # in minutes
 ]
 
 
@@ -73,7 +73,7 @@ def create_dict(list_dict):
             continue
     return dict
 
-def gridsearch(dict_list, run_name, use_ikw_grid):
+def gridsearch(dict_list, run_name, use_ikw_grid=False):
 
     dict = create_dict(dict_list)
 
@@ -108,7 +108,7 @@ def gridsearch(dict_list, run_name, use_ikw_grid):
             count += 1
             print('Test', count, 'of', nr_of_perms, ':')
             print(dict_list)
-            best_run, mean_run = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13])
+            best_run, mean_run = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
 
             # saving results
             best.append(best_run)
@@ -139,4 +139,4 @@ def grid_manager(permutations):
 
 
 if __name__ == '__main__':
-    gridsearch(input_dict, run, use_ikw_grid)
+    gridsearch(input_dict, run)
