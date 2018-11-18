@@ -5,8 +5,8 @@ from grid_search import gridsearch, create_dict
 
 # parsing command-line imputs
 parameter = sys.argv[1]
-value1 = int(sys.argv[2])
-value2 = int(sys.argv[3])
+value1 = float(sys.argv[2])
+value2 = float(sys.argv[3])
 
 
 dict_list = [
@@ -29,7 +29,7 @@ dict_list = [
 def search_init(dict_list, parameter, test_values):
     """
     searches
-    :param dict_list: standard parameters
+    :param dict_list: standa.rd parameters
     :param parameter: param we want to analyze
     :param test_values: how we want to change the parameter
     """
@@ -41,5 +41,5 @@ def search_init(dict_list, parameter, test_values):
     gridsearch(dict_list, parameter + str(test_values))
 
 
-search_init(dict_list, parameter, value1, value2)
+search_init(dict_list, parameter, [value1, value2])
 
