@@ -2,7 +2,6 @@ import csv
 import itertools
 import numpy as np
 import pickle
-from collections import OrderedDict
 
 from model import VRP
 
@@ -10,7 +9,7 @@ from model import VRP
 ''' HYPERPARAMETERS '''
 
 run = 'test2'
-use_ikw_grid = True
+use_ikw_grid = False
 
 
 ''' SEARCH CONFIGURATION '''
@@ -74,7 +73,7 @@ def create_dict(list_dict):
             continue
     return dict
 
-def gridsearch(dict_list, run_name, use_grid):
+def gridsearch(dict_list, run_name, use_ikw_grid):
 
     dict = create_dict(dict_list)
 
@@ -103,7 +102,7 @@ def gridsearch(dict_list, run_name, use_grid):
         pickle.dump(dict_list, f)
 
 
-    if use_grid == False:
+    if use_ikw_grid == False:
         count = 0
         for v in permutations:
             count += 1
@@ -136,8 +135,8 @@ def grid_manager(permutations):
     using a special manager for IKW grid deployment
     :param permutations: all permutations of the input to deploy
     """
-    pass
+    pass # TODO
 
 
 if __name__ == '__main__':
-    gridsearch(input_dict, run, use_grid)
+    gridsearch(input_dict, run, use_ikw_grid)
