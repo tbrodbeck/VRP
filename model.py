@@ -694,6 +694,7 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
     pop_size = int(pop_size)
     aco_iterations = int(aco_iterations)
     kmeans_iterations = int(kmeans_iterations)
+    selection_size = int(selection_size)
 
     tournament_size = 2
     steady_state_n = round(pop_size / 2)
