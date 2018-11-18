@@ -688,6 +688,11 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
     :return:
     """
 
+    # convert inputs to right values
+    pop_size = int(pop_size)
+    aco_iterations = int(aco_iterations)
+    kmeans_iterations = int(kmeans_iterations)
+
     tournament_size = 2
     steady_state_n = round(pop_size / 2)
 

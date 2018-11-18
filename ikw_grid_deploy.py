@@ -21,7 +21,7 @@ dict_list = [
     'crossover_prob', [0.15],
     'mutation_prob', [0.07],
     'reduce_clusters', [4],
-    'kmeans_iterations', [15],
+    'kmeans_iterations', [20],
     'squared_dist', [True],
     'time_limit', [20] # in minutes
 ]
