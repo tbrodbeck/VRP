@@ -17,6 +17,7 @@ def load_vrp(which):
     load scenario information
     """
     which = int(which)
+    print('Scenario:', which)
     if which == 1:
         capacity = np.loadtxt(vrp1_dir + "capacity.txt")
         demand = np.loadtxt(vrp1_dir + "demand.txt")

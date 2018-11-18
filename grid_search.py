@@ -73,7 +73,7 @@ def create_dict(list_dict):
             continue
     return dict
 
-def gridsearch(dict_list, run_name, use_ikw_grid=False):
+def gridsearch(dict_list, run_name):
 
     dict = create_dict(dict_list)
 
@@ -102,7 +102,6 @@ def gridsearch(dict_list, run_name, use_ikw_grid=False):
         pickle.dump(dict_list, f)
 
 
-    if use_ikw_grid == False:
         count = 0
         for v in permutations:
             count += 1
@@ -127,8 +126,6 @@ def gridsearch(dict_list, run_name, use_ikw_grid=False):
                 print(i)
                 writer.writerow(i)
 
-    else:
-        grid_manager(permutations)
 
 def grid_manager(permutations):
     """

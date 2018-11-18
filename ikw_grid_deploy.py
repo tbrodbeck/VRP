@@ -36,7 +36,6 @@ def search_init(dict_list, parameter, test_values):
     for i, e in enumerate(dict_list):
         if e == parameter:
             dict_list[i + 1] = test_values
-    print(dict_list)
 
     gridsearch(dict_list, parameter + str(test_values))
 
