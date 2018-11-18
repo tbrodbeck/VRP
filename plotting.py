@@ -3,15 +3,19 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
+import sys
 
 from grid_search import create_dict
 
 
 ''' INSERT QUERY '''
 
-run_name = 'heuristic_test'
-grid_param = 'scenario'
-
+if len(sys.argv) == 1:
+    run_name = 'heuristic_test'
+    grid_param = 'scenario'
+else:
+    grid_param = sys.argv[1]
+    run_name = grid_param + '[%s, %d]'%(float(sys.argv[2]), float(sys.argv[3]))
 
 ''' PLOT FUNCTIONS '''
 
