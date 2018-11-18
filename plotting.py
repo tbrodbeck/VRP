@@ -87,10 +87,10 @@ def plot_helper(string, tests, value, param_info, permutation):
     :param param_info: name of the parameter
     """
 
-    plotname = run_name + '_' + string + '_' + param_info + str(value)
+    plotname = string + '_' + run_name + '_' + param_info + str(value)
 
     print('plot:', plotname)
-    with open('./results/' + string + '_' + run_name + '.csv', 'r') as f:
+    with open('./results/' + run_name + '_' + string + '.csv', 'r') as f:
         for i, row in enumerate(csv.reader(f)):
             plt.title(plotname)
             if tests[i] == value:
