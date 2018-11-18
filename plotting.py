@@ -15,7 +15,7 @@ if len(sys.argv) == 1:
     grid_param = 'scenario'
 else:
     grid_param = sys.argv[1]
-    run_name = grid_param + '[%s, %d]'%(float(sys.argv[2]), float(sys.argv[3]))
+    run_name = grid_param + '[%s, %s]'%(float(sys.argv[2]), float(sys.argv[3]))
 
 ''' PLOT FUNCTIONS '''
 
