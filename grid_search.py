@@ -28,7 +28,7 @@ further_test = [
     'reduce_clusters', [0, 4],
     'kmeans_iterations', [10, 20],
     'squared_dist', [True],
-    'time_limit', [20] # in minutes
+    'time_limit', [10] # in minutes
 ]
 
 heuristic_test = [
@@ -45,7 +45,7 @@ heuristic_test = [
     'reduce_clusters', [0],
     'kmeans_iterations', [10],
     'squared_dist', [True],
-    'time_limit', [20] # in minutes
+    'time_limit', [10] # in minutes
 ]
 
 
@@ -106,7 +106,7 @@ def gridsearch(dict_list, run_name, use_ikw_grid=False):
         count = 0
         for v in permutations:
             count += 1
-            print('Test', count, 'of', nr_of_perms, ':')
+            print(run_name, count, 'of', nr_of_perms, ':')
             print(dict_list)
             best_run, mean_run = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
 
