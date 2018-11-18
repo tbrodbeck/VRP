@@ -97,7 +97,7 @@ def plot_helper(string, tests, value, param_info, permutation):
                 plt.plot([int(float(r)) for r in row], label=permutation[i])
                 plt.xlabel('GA-iterations')
                 plt.ylabel('Cost')
-        plt.legend(prop={'size': 6})
+        # plt.legend(prop={'size': 6})
         plt.savefig('./plots/' + plotname + '_.png')
         plt.gcf().clear()
 
