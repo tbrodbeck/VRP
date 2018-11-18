@@ -9,12 +9,12 @@ from model import VRP
 
 ''' HYPERPARAMETERS '''
 
-run = 'test2'
+run = 'further_test'
 
 
 ''' SEARCH CONFIGURATION '''
 
-test2 = [
+further_test = [
     'scenario', [1, 2],
     'heuristic', [True],
     'pop_size', [10, 14],
