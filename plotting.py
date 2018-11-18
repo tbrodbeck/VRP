@@ -39,17 +39,17 @@ def get_test(param):
                 position = int(i/2)
                 vals = dict_list[i +1]
 
-
-        dict = create_dict(dict_list)
-        print('parameters:', dict)
-
-        # create a list of all parameters without dictionary names
+        # creating cartesian product of the dictionary as 2D-list
+        # 1.: create a clean list of all parameters without parameter names
         iteration = []
-        for i, entry in enumerate(dict):
-            values = []
-            for value in dict[entry]:
-                values.append(value)
-            iteration.append(values)
+        # if done with one element
+        done = False
+        for i, e in enumerate(dict_list):
+            if done == False:
+                done = True
+            else:
+                iteration.append(e)
+                done = False
 
         # search all permutation of current grid search
         permutation = []
