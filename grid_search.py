@@ -75,22 +75,23 @@ def create_dict(list_dict):
 
 def gridsearch(dict_list, run_name):
 
-    dict = create_dict(dict_list)
-
     # creating cartesian product of the dictionary as 2D-list
-    # 1.: create a list of all parameters without dictionary names
+    # 1.: create a clean list of all parameters without parameter names
     iteration = []
-    for i, entry in enumerate(dict):
-        values = []
-        for value in dict[entry]:
-            values.append(value)
-        iteration.append(values)
+    # if done with one element
+    done = False
+    for i, e in enumerate(dict_list):
+        if done == False:
+            done = True
+        else:
+            iteration.append(e)
+            done = False
 
     # init saving-lists
     best = []
     mean = []
 
-    # deploying all permutations
+    # creating all permutations
     print('All permutations of test-parameters:')
     nr_of_perms = 0
     permutations = []
@@ -98,33 +99,35 @@ def gridsearch(dict_list, run_name):
         permutations.append(v)
         print(v)
         nr_of_perms += 1
+
+    # persisting parameter setup
     with open('./results/' + run_name + '.pickle', 'wb') as f:
         pickle.dump(dict_list, f)
 
+    # deploy it
+    count = 0
+    for v in permutations:
+        count += 1
+        print(run_name, count, 'of', nr_of_perms, ':')
+        print(dict_list)
+        best_run, mean_run = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
 
-        count = 0
-        for v in permutations:
-            count += 1
-            print(run_name, count, 'of', nr_of_perms, ':')
-            print(dict_list)
-            best_run, mean_run = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
-
-            # saving results
-            best.append(best_run)
-            mean.append(mean_run)
-        # persisting
-        print('Endresults for best:')
-        with open('./results/' + run_name + '_best.csv', 'w') as csvfile:
-            writer = csv.writer(csvfile)
-            for i in best:
-                print(i)
-                writer.writerow(i)
-        print('Endresults for mean:')
-        with open('./results/' + run_name + '_mean.csv', 'w') as csvfile:
-            writer = csv.writer(csvfile)
-            for i in mean:
-                print(i)
-                writer.writerow(i)
+        # saving results
+        best.append(best_run)
+        mean.append(mean_run)
+    # persisting
+    print('Endresults for best:')
+    with open('./results/' + run_name + '_best.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        for i in best:
+            print(i)
+            writer.writerow(i)
+    print('Endresults for mean:')
+    with open('./results/' + run_name + '_mean.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        for i in mean:
+            print(i)
+            writer.writerow(i)
 
 
 def grid_manager(permutations):
