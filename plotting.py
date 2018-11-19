@@ -97,8 +97,9 @@ def plot_helper(string, tests, value, param_info, permutation):
                 plt.xlabel('GA-iterations')
                 plt.ylabel('Cost')
         # optional command to show a legend
-        # plt.legend(prop={'size': 6})
+        plt.legend(prop={'size': 6})
         plt.ylim(50000, 100000)
+        plt.xlim(0, 600)
         plt.savefig('./plots/' + plotname + '_.png')
         plt.gcf().clear()
 
