@@ -54,24 +54,6 @@ heuristic_test = [
 # retrieving dict by run name
 input_dict = globals()[run]
 
-def create_dict(list_dict):
-    """
-    Creating a dict from a list-dict
-    """
-    # True if done with one key-value pair
-    done = False
-    name = ''
-    dict = {}
-    for elem in list_dict:
-        if done == False:
-            name = elem
-            done = True
-            continue
-        if done == True:
-            dict[name] = elem
-            done = False
-            continue
-    return dict
 
 def gridsearch(dict_list, run_name):
 
@@ -128,14 +110,6 @@ def gridsearch(dict_list, run_name):
         for i in mean:
             print(i)
             writer.writerow(i)
-
-
-def grid_manager(permutations):
-    """
-    using a special manager for IKW grid deployment
-    :param permutations: all permutations of the input to deploy
-    """
-    pass # TODO
 
 
 if __name__ == '__main__':

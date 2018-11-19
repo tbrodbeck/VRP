@@ -1,6 +1,6 @@
 import sys
 
-from grid_search import gridsearch, create_dict
+from grid_search import gridsearch
 
 
 # parsing command-line imputs
@@ -13,7 +13,7 @@ dict_list = [
     'scenario', [1, 2],
     'heuristic', [True],
     'pop_size', [12],
-    'selection_size', [2],
+    'selection_size', [4],
     'aco_iterations', [20],
     'beta', [1],
     'evap_rate', [.1],

@@ -8,11 +8,10 @@ import numpy as np
 import pickle
 import sys
 
-from grid_search import create_dict
-
 
 ''' INSERT QUERY '''
 
+# if not using command line input
 if len(sys.argv) == 1:
     run_name = 'heuristic_test'
     grid_param = 'scenario'
