@@ -1,0 +1,49 @@
+Test 1:
+
+dict_list = [
+    'scenario', [1, 2],
+    'heuristic', [True],
+    'pop_size', [12],
+    'selection_size', [2],
+    'aco_iterations', [20],
+    'beta', [1],
+    'evap_rate', [.1],
+    'beta_evap', [0],
+    'crossover_prob', [0.15],
+    'mutation_prob', [0.07],
+    'reduce_clusters', [4],
+    'kmeans_iterations', [20],
+    'squared_dist', [True],
+    'time_limit', [20] # in minutes
+]
+
+if run == 1:
+	input = 'pop_size 10 14'
+
+if run == 2:
+	input = 'selection_size 2 4'
+
+if run == 3:
+	input = 'aco_iterations 15 25'
+
+if run == 4:
+	input = 'beta 0.9 1'
+
+if run == 5:
+	input = 'evap_rate .1 .2'
+
+if run == 6:
+	input = 'crossover_prob 0.1 0.2'
+
+if run == 7:
+	input = 'mutation_prob 0.05 0.1'
+
+if run == 8:
+	input = 'reduce_clusters 0 4'
+
+if run == 9:
+	input = 'kmeans_iterations 10 20'
+
+if run == 10:
+	input = 'squared_dist 0 1'
+
