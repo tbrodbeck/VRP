@@ -12,17 +12,17 @@ value2 = float(sys.argv[3])
 dict_list = [
     'scenario', [1, 2],
     'heuristic', [True],
-    'pop_size', [12],
+    'pop_size', [14],
     'selection_size', [4],
-    'aco_iterations', [20],
+    'aco_iterations', [15],
     'beta', [1],
     'evap_rate', [.1],
-    'beta_evap', [0],
-    'crossover_prob', [0.15],
-    'mutation_prob', [0.07],
+    'beta_evap', [0.2],
+    'crossover_prob', [0.1],
+    'mutation_prob', [0.1],
     'reduce_clusters', [4],
     'kmeans_iterations', [20],
-    'squared_dist', [True],
+    'squared_dist', [False],
     'time_limit', [20] # in minutes
 ]
 
