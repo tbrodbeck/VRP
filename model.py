@@ -718,6 +718,7 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
     current_time = time.time()
     best = []
     mean = []
+    solution = None
 
     while time.time() - current_time < time_limit:
 
@@ -760,6 +761,7 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
         for i in range(len(population)):
             if best_pop == 0 or best_pop > population[i].fitness:
                 best_pop = population[i].fitness
+                solution = population[i].allele
             mean_pop += population[i].fitness
         mean_pop /= len(population)
         best.append(best_pop)
@@ -767,9 +769,10 @@ def VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, eva
 
     print('Best:', best)
     print('Mean:', mean)
+    print('Solution:', solution)
 
 
-    return best, mean
+    return best, mean, solution
 
 if __name__ == '__main__':
     # VRP(scenario, heuristic, pop_size, selection_size, aco_iterations, beta, evap_rate, beta_evap, crossover_prob, mutation_prob, reduce_clusters, kmeans_iterations, squared_dist, time_limit)

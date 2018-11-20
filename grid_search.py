@@ -16,7 +16,7 @@ run = 'final_test'
 if len(sys.argv) == 1:
     scenario = None
 else:
-    scenario = int(sys.argv[1])
+    scenario = [int(sys.argv[1])]
 
 
 ''' SEARCH CONFIGURATION '''
@@ -97,6 +97,7 @@ def gridsearch(dict_list, run_name):
     # init saving-lists
     best = []
     mean = []
+    solutions = []
 
     # creating all permutations
     print('All permutations of test-parameters:')
@@ -117,11 +118,12 @@ def gridsearch(dict_list, run_name):
         count += 1
         print(run_name, count, 'of', nr_of_perms, ':')
         print(dict_list)
-        best_run, mean_run = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
+        best_run, mean_run, solution = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
 
         # saving results
         best.append(best_run)
         mean.append(mean_run)
+        solutions.append(solution)
     # persisting
     print('Endresults for best:')
     with open('./results/' + run_name + '_best.csv', 'w') as csvfile:
@@ -133,6 +135,11 @@ def gridsearch(dict_list, run_name):
     with open('./results/' + run_name + '_mean.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
         for i in mean:
+            print(i)
+            writer.writerow(i)
+    with open('./results/' + run_name + '_solution.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        for i in solutions:
             print(i)
             writer.writerow(i)
 
