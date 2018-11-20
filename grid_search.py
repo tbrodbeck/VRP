@@ -10,11 +10,13 @@ from model import VRP
 ''' HYPERPARAMETERS '''
 
 
+run = 'final_test'
 
 # if not using command line input
-
-run = 'final_test'
-scenario = [1, 2]
+if len(sys.argv) == 1:
+    scenario = None
+else:
+    scenario = int(sys.argv[1])
 
 
 ''' SEARCH CONFIGURATION '''
@@ -54,7 +56,7 @@ further_test = [
 ]
 
 final_test = [
-    'scenario', [scenario],
+    'scenario', scenario,
     'heuristic', [True],
     'pop_size', [14],
     'selection_size', [6],
@@ -76,7 +78,6 @@ final_test = [
 # retrieving dict by run name
 input_dict = globals()[run]
 if len(sys.argv) == 3:
-    scenario = int(sys.argv[1])
     run = 'final_test' + sys.argv[1] + sys.argv[2]
 
 def gridsearch(dict_list, run_name):
