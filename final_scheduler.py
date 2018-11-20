@@ -10,9 +10,9 @@ command = 'python3 grid_search.py '
 command2 = 'python3 plotting.py '
 
 # choose scenario
-if run <= 10:
+if run <= 11:
     input = '1 ' + str(run)
-if run <= 20:
+elif run <= 22:
     input = '2 ' + str(run)
 
 os.system(command + input)
