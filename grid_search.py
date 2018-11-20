@@ -77,7 +77,7 @@ final_test = [
 input_dict = globals()[run]
 if len(sys.argv) == 3:
     scenario = int(sys.argv[1])
-    run = 'final_test' + sys.argv[2] + sys.argv[3]
+    run = 'final_test' + sys.argv[1] + sys.argv[2]
 
 def gridsearch(dict_list, run_name):
 
