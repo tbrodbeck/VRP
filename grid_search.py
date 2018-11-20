@@ -9,27 +9,15 @@ from model import VRP
 
 ''' HYPERPARAMETERS '''
 
-run = 'further_test'
+
+
+# if not using command line input
+
+run = 'final_test'
+scenario = [1, 2]
 
 
 ''' SEARCH CONFIGURATION '''
-
-further_test = [
-    'scenario', [1, 2],
-    'heuristic', [True],
-    'pop_size', [10, 14],
-    'selection_size', [2, 4],
-    'aco_iterations', [15, 25],
-    'beta', [1],
-    'evap_rate', [.1],
-    'beta_evap', [0],
-    'crossover_prob', [0.1, 0.2],
-    'mutation_prob', [0.05, 0.1],
-    'reduce_clusters', [0, 4],
-    'kmeans_iterations', [10, 20],
-    'squared_dist', [True],
-    'time_limit', [10] # in minutes
-]
 
 heuristic_test = [
     'scenario', [1, 2],
@@ -48,12 +36,48 @@ heuristic_test = [
     'time_limit', [10] # in minutes
 ]
 
+further_test = [
+    'scenario', [1, 2],
+    'heuristic', [True],
+    'pop_size', [10, 14],
+    'selection_size', [2, 4],
+    'aco_iterations', [15, 25],
+    'beta', [1],
+    'evap_rate', [.1],
+    'beta_evap', [0],
+    'crossover_prob', [0.1, 0.2],
+    'mutation_prob', [0.05, 0.1],
+    'reduce_clusters', [0, 4],
+    'kmeans_iterations', [10, 20],
+    'squared_dist', [True],
+    'time_limit', [10] # in minutes
+]
+
+final_test = [
+    'scenario', [scenario],
+    'heuristic', [True],
+    'pop_size', [14],
+    'selection_size', [6],
+    'aco_iterations', [17],
+    'beta', [.99],
+    'evap_rate', [.1],
+    'beta_evap', [.1],
+    'crossover_prob', [.07],
+    'mutation_prob', [.07],
+    'reduce_clusters', [6],
+    'kmeans_iterations', [20],
+    'squared_dist', [True],
+    'time_limit', [120] # in minutes
+]
+
 
 ''' SEARCH FUNCTIONS '''
 
 # retrieving dict by run name
 input_dict = globals()[run]
-
+if len(sys.argv) == 3:
+    scenario = int(sys.argv[1])
+    run = 'final_test' + sys.argv[2] + sys.argv[3]
 
 def gridsearch(dict_list, run_name):
 

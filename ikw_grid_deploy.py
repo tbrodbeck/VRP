@@ -17,13 +17,13 @@ dict_list = [
     'aco_iterations', [17],
     'beta', [0.99],
     'evap_rate', [.1],
-    'beta_evap', [0.1],
-    'crossover_prob', [0.7],
+    'beta_evap', [.1],
+    'crossover_prob', [0.07],
     'mutation_prob', [0.07],
     'reduce_clusters', [6],
     'kmeans_iterations', [20],
     'squared_dist', [True],
-    'time_limit', [20] # in minutes
+    'time_limit', [60] # in minutes
 ]
 
 def search_init(dict_list, parameter, test_values):

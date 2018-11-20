@@ -9,6 +9,7 @@ run = int(sys.argv[1])
 command = 'python3 ikw_grid_deploy.py '
 command2 = 'python3 plotting.py '
 
+
 if run == 1:
 	input = 'pop_size 14 16'
 
@@ -19,13 +20,13 @@ if run == 3:
 	input = 'aco_iterations 15 20'
 
 if run == 4:
-	input = 'beta 0.95 0.99'
+	input = 'beta 0.5 0.99'
 
 if run == 5:
 	input = 'evap_rate .05 .15'
 
 if run == 6:
-	input = 'beta_evap 0 0.2'
+	input = 'beta_evap 0 0.6'
 
 if run == 7:
 	input = 'crossover_prob 0.05 0.1'
