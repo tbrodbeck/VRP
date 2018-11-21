@@ -77,19 +77,19 @@ def plot(parameter, modus='best'):
     plot_helper(modus, disctinction, vals[1], parameter, permutation)
 
 
-def plot_helper(string, tests, value, param_info, permutation):
+def plot_helper(modus, tests, value, param_info, permutation):
     """
     plots two contrasting plots
-    :param string: can be 'mean' or 'best'
+    :param modus: can be 'mean' or 'best'
     :param tests: distinctions of contrasting test parameters
     :param value: values of the test parameter
     :param param_info: name of the parameter
     """
 
-    plotname = string + '_' + run_name + '_' + param_info + str(value)
+    plotname = modus + '_' + run_name + '_' + param_info + str(value)
 
     print('plot:', plotname)
-    with open('./results/' + run_name + '_' + string + '.csv', 'r') as f:
+    with open('./results/' + run_name + '_' + modus + '.csv', 'r') as f:
         for i, row in enumerate(csv.reader(f)):
             plt.title(plotname)
             if tests[i] == value:
