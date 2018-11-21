@@ -69,7 +69,7 @@ final_test = [
     'reduce_clusters', [6],
     'kmeans_iterations', [20],
     'squared_dist', [True],
-    'time_limit', [120] # in minutes
+    'time_limit', [80] # in minutes
 ]
 
 
@@ -114,6 +114,7 @@ def gridsearch(dict_list, run_name):
 
     # deploy it
     count = 0
+    print(permutations)
     for v in permutations:
         count += 1
         print(run_name, count, 'of', nr_of_perms, ':')
