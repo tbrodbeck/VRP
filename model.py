@@ -8,10 +8,6 @@ from abc import ABC, abstractmethod
 from AntColonyOptimizer import AntColonyOptimizer
 from copy import deepcopy
 
-"""
-Main model of our nature inspired algorithm for VRP problems.
-"""
-
 vrp1_dir = "VRP1/"
 vrp2_dir = "VRP2/"
 
@@ -179,119 +175,124 @@ class KMeansInitializer(Initializer):
         """
 
         for i in range(pop_size):
-
-            chromosome = np.zeros(self.num_customers, dtype=int)
-
-            # number of kmeans iterations
-            for iteration in range(self.num_iterations):
-
-                if iteration == 0:
-                    # Choose starting customers by random
-
-                    for i in range(self.num_clusters):
-                        customer = np.random.randint(self.num_customers)
-
-                        if chromosome[customer] == 0:
-
-                            chromosome[customer] = i + 1
-
-                        else:
-                            while chromosome[customer] != 0:
-                                customer = (customer + 1) % self.num_customers
-
-                            chromosome[customer] = i + 1
-
-                else:
-                    # set new starting points from clusters
-                    # starting point will be the one customer whose squared distance to all others is smallest
-                    distance = np.zeros(self.num_clusters, dtype=int)
-                    position = np.zeros(self.num_clusters, dtype=int)
-
-                    for i in range(self.num_customers):
-                        cluster_size = 0
-                        summed_distance = 0
-
-                        # sum up distances
-                        for j in range(self.num_customers):
-                            if chromosome[i] == chromosome[j] and i != j:
-                                # squared distance
-                                summed_distance += self.fitness_object.distance_matrix[i + 1][j + 1] ** 2
-                                cluster_size += 1
-
-                        # update best
-                        if cluster_size > 0:
-                            if distance[chromosome[i] - 1] == 0:
-                                distance[chromosome[i] - 1] = summed_distance / cluster_size
-                                position[chromosome[i] - 1] = i
+            
+            valid = False
+            while not(valid):
+                
+                chromosome = np.zeros(self.num_customers, dtype=int)
+    
+                # number of kmeans iterations
+                for iteration in range(self.num_iterations):
+    
+                    if iteration == 0:
+                        # Choose starting customers by random
+    
+                        for i in range(self.num_clusters):
+                            customer = np.random.randint(self.num_customers)
+    
+                            if chromosome[customer] == 0:
+    
+                                chromosome[customer] = i + 1
+    
                             else:
-                                if summed_distance / cluster_size < distance[chromosome[i] - 1]:
+                                while chromosome[customer] != 0:
+                                    customer = (customer + 1) % self.num_customers
+    
+                                chromosome[customer] = i + 1
+    
+                    else:
+                        # set new starting points from clusters
+                        # starting point will be the one customer whose squared distance to all others is smallest
+                        distance = np.zeros(self.num_clusters, dtype=int)
+                        position = np.zeros(self.num_clusters, dtype=int)
+    
+                        for i in range(self.num_customers):
+                            cluster_size = 0
+                            summed_distance = 0
+    
+                            # sum up distances
+                            for j in range(self.num_customers):
+                                if chromosome[i] == chromosome[j] and i != j:
+                                    # squared distance
+                                    summed_distance += self.fitness_object.distance_matrix[i + 1][j + 1] ** 2
+                                    cluster_size += 1
+    
+                            # update best
+                            if cluster_size > 0:
+                                if distance[chromosome[i] - 1] == 0:
                                     distance[chromosome[i] - 1] = summed_distance / cluster_size
                                     position[chromosome[i] - 1] = i
-
-                    for i in range(self.num_customers):
-                        chromosome[i] = 0
-                    for i in range(self.num_clusters):
-                        chromosome[position[i]] = i + 1
-
-                # cluster assignment
-                # choose an unassigned customer
-                for i in range(self.num_customers - self.num_clusters):
-                    customer = np.random.randint(self.num_customers)
-
-                    if chromosome[customer] != 0:
-                        while chromosome[customer] != 0:
-                            customer = (customer + 1) % self.num_customers
-
-                    cluster_distance = np.zeros(self.num_clusters, dtype=int)
-                    cluster_size = np.zeros(self.num_clusters, dtype=int)
-                    cluster_load = np.zeros(self.num_clusters, dtype=int)
-
-                    # calculate distance to clusters
-                    for i in range(self.num_customers):
-                        if chromosome[i] != 0:
-                            if self.squared_dist:
-                                cluster_distance[chromosome[i] - 1] += self.fitness_object.distance_matrix[i + 1][
-                                                                           customer + 1] ** 2
+                                else:
+                                    if summed_distance / cluster_size < distance[chromosome[i] - 1]:
+                                        distance[chromosome[i] - 1] = summed_distance / cluster_size
+                                        position[chromosome[i] - 1] = i
+    
+                        for i in range(self.num_customers):
+                            chromosome[i] = 0
+                        for i in range(self.num_clusters):
+                            chromosome[position[i]] = i + 1
+    
+                    # cluster assignment
+                    # choose an unassigned customer
+                    for i in range(self.num_customers - self.num_clusters):
+                        customer = np.random.randint(self.num_customers)
+    
+                        if chromosome[customer] != 0:
+                            while chromosome[customer] != 0:
+                                customer = (customer + 1) % self.num_customers
+    
+                        cluster_distance = np.zeros(self.num_clusters, dtype=int)
+                        cluster_size = np.zeros(self.num_clusters, dtype=int)
+                        cluster_load = np.zeros(self.num_clusters, dtype=int)
+    
+                        # calculate distance to clusters
+                        for i in range(self.num_customers):
+                            if chromosome[i] != 0:
+                                if self.squared_dist:
+                                    cluster_distance[chromosome[i] - 1] += self.fitness_object.distance_matrix[i + 1][customer + 1] ** 2
+                                else:
+                                    cluster_distance[chromosome[i] - 1] += self.fitness_object.distance_matrix[i + 1][customer + 1]
+                                cluster_size[chromosome[i] - 1] += 1
+                                cluster_load[chromosome[i] - 1] += self.demand[i]
+    
+                        for i in range(self.num_clusters):
+                            if cluster_size[i] > 0:
+                                cluster_distance[i] /= cluster_size[i]
+    
+                        # lowest distance first !capacity constraint
+                        # cluster_sorted = np.sort(deepcopy(cluster_distance)) #?
+                        index = np.argsort(cluster_distance)
+    
+                        done = False
+                        i = 0
+                        while i < self.num_clusters and not (done):
+                            cluster_load[index[i]] += self.demand[customer]
+                            if self.capacity_constraint(cluster_load):
+                                chromosome[customer] = index[i] + 1
+                                done = True
                             else:
-                                cluster_distance[chromosome[i] - 1] += self.fitness_object.distance_matrix[i + 1][
-                                                                           customer + 1]
-                            cluster_size[chromosome[i] - 1] += 1
-                            cluster_load[chromosome[i] - 1] += self.demand[i]
-
-                    for i in range(self.num_clusters):
-                        if cluster_size[i] > 0:
-                            cluster_distance[i] /= cluster_size[i]
-
-                    # lowest distance first !capacity constraint
-                    # cluster_sorted = np.sort(deepcopy(cluster_distance)) #?
-                    index = np.argsort(cluster_distance)
-
-                    done = False
-                    i = 0
-                    while i < self.num_clusters and not (done):
-                        cluster_load[index[i]] += self.demand[customer]
-                        if self.capacity_constraint(cluster_load):
-                            chromosome[customer] = index[i] + 1
-                            done = True
-                        else:
-                            cluster_load[index[i]] -= self.demand[customer]
-                            i += 1
-                            # exit statement if no solution found? possible?
-
-            # assign each cluster a vehicle
-            allele = self.assign_vehicle(cluster_load, chromosome)
-            available_capacity = deepcopy(self.capacity)
-
-            # construct chromosome
-            for i in range(self.num_customers):
-                available_capacity[allele[i]] -= self.demand[i]
-                # control statement?
-            individual = Chromosome(allele, self.fitness_object, available_capacity)
-
-            # insert chromosome into population
-            self.population.append(individual)
+                                cluster_load[index[i]] -= self.demand[customer]
+                                i += 1
+                                # exit statement if no solution found? possible?
+    
+                # assign each cluster a vehicle
+                allele = self.assign_vehicle(cluster_load, chromosome)
+                available_capacity = deepcopy(self.capacity)
+    
+                # construct chromosome
+                for i in range(self.num_customers):
+                    available_capacity[allele[i]] -= self.demand[i]
+                    # control statement?
+                individual = Chromosome(allele, self.fitness_object, available_capacity)
+                
+                
+                # insert chromosome into population
+                if individual.fitness != False:
+                    valid=True
+                    self.population.append(individual)
 
         return self.population
+
 
     def capacity_constraint(self, cluster_load):
         """
