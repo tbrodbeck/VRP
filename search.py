@@ -6,17 +6,25 @@ import sys
 
 from model import VRP
 
+"""
+Main search function for the model
+It also comprises the all of the persistence functions.
+To use it, simply adapt the hyperparameters and run it.
+This scrips is also capable to perform grid-searches (but do not confuse grid search with the ikw-grid).
+"""
+
 
 ''' HYPERPARAMETERS '''
 
+run_name = 'run' # the name of the run should be the same as a corresponding dictionary
+verbose = True
+time_limit = 10 # in minutes
+scenario = 1
 
-run = 'final_test'
 
-# if not using command line input
-if len(sys.argv) == 1:
-    scenario = None
-else:
-    scenario = [int(sys.argv[1])]
+# if using command line input
+if len(sys.argv) > 1:
+    scenario = int(sys.argv[1])
 
 
 ''' SEARCH CONFIGURATION '''
@@ -56,7 +64,7 @@ further_test = [
 ]
 
 final_test = [
-    'scenario', scenario,
+    'scenario', [scenario],
     'heuristic', [True],
     'pop_size', [14],
     'selection_size', [6],
@@ -72,13 +80,34 @@ final_test = [
     'time_limit', [80] # in minutes
 ]
 
+run = [
+    'scenario', [scenario],
+    'heuristic', [True],
+    'pop_size', [14],
+    'selection_size', [6],
+    'aco_iterations', [17],
+    'beta', [.99],
+    'evap_rate', [.1],
+    'beta_evap', [.1],
+    'crossover_prob', [.07],
+    'mutation_prob', [.07],
+    'reduce_clusters', [6],
+    'kmeans_iterations', [20],
+    'squared_dist', [True],
+    'time_limit', [time_limit] # in minutes
+]
 
 ''' SEARCH FUNCTIONS '''
 
 # retrieving dict by run name
-input_dict = globals()[run]
+try:
+    input_dict = globals()[run_name]
+except:
+    print('the name of the run should be the same as one dictionary')
+
+
 if len(sys.argv) == 3:
-    run = 'final_test' + sys.argv[1] + sys.argv[2]
+    run_name = 'final_test' + sys.argv[1] + sys.argv[2]
 
 def gridsearch(dict_list, run_name):
 
@@ -119,7 +148,7 @@ def gridsearch(dict_list, run_name):
         count += 1
         print(run_name, count, 'of', nr_of_perms, ':')
         print(dict_list)
-        best_run, mean_run, solution = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60)
+        best_run, mean_run, solution = VRP(scenario=v[0], heuristic=v[1], pop_size=v[2], selection_size=v[3], aco_iterations=v[4], beta=v[5], evap_rate=v[6], beta_evap=v[7], crossover_prob=v[8], mutation_prob=v[9], reduce_clusters=v[10], kmeans_iterations=v[11], squared_dist=v[12], time_limit=v[13] * 60, verbose=verbose)
 
         # saving results
         best.append(best_run)
@@ -146,4 +175,4 @@ def gridsearch(dict_list, run_name):
 
 
 if __name__ == '__main__':
-    gridsearch(input_dict, run)
+    gridsearch(input_dict, run_name)

@@ -1,5 +1,9 @@
 import numpy as np
 
+"""
+This file only contains our improved ACO class.
+It is also possible to run this script on a TSP-problem.
+"""
 
 class AntColonyOptimizer:
     def __init__(self, ants, evaporation_rate, intensification, alpha=1, beta=0, beta_evaporation_rate=0,

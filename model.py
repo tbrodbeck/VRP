@@ -8,6 +8,10 @@ from abc import ABC, abstractmethod
 from AntColonyOptimizer import AntColonyOptimizer
 from copy import deepcopy
 
+"""
+Main model of our nature inspired algorithm for VRP problems.
+"""
+
 vrp1_dir = "VRP1/"
 vrp2_dir = "VRP2/"
 

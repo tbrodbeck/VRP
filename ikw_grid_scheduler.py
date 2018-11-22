@@ -1,12 +1,17 @@
 import os
 import sys
 
+""" 
+Grid search to be deployed on the ikw grid.
+It is designed for 11 parallel runs.
+"""
+
 
 print('cwd', os.getcwd())
 run = int(sys.argv[1])
 
 
-command = 'python3 ikw_grid_deploy.py '
+command = 'python3 ikw_grid_adapter.py '
 command2 = 'python3 plotting.py '
 
 

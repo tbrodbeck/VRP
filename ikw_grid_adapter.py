@@ -1,7 +1,10 @@
 import sys
 
-from grid_search import gridsearch
+from search import gridsearch
 
+"""
+This script is an adapter we used for ikw-grid deployment
+"""
 
 # parsing command-line imputs
 parameter = sys.argv[1]

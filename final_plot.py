@@ -3,9 +3,17 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 
+"""
+This script plots a representation of a array of runs.
+The configuration is 10 plots for scenario 1 and 10 more plots for scenario 2.
+"""
+
+''' hyperparameters'''
+
 modus = 'best'
 test_name = 'final_test'
 
+''' data sorting '''
 results = []
 run_names = []
 # plot our 20 final runs
@@ -19,7 +27,7 @@ for run in range(20):
 
     run_name = test_name + str(scenario) + str(run)
     run_names.append(run_name)
-    filename = './results_final/' + run_name + '_' + modus + '.csv'
+    filename = './results/' + run_name + '_' + modus + '.csv'
 
 
     if os.path.isfile(filename):
@@ -31,8 +39,7 @@ for run in range(20):
     else:
           print('file not found')
 
-#print(results)
-
+''' plotting '''
 # for every scenario
 for scenario in range(2):
     scenario += 1
@@ -41,7 +48,6 @@ for scenario in range(2):
         if scenario == 2:
             run += 10
 
-        #print('plotting ' + str(results[run]))
         plt.plot(results[run], label='Run %s'%(run+1))
         plt.xlabel('GA-iterations')
         plt.ylabel('Cost')

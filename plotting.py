@@ -9,14 +9,20 @@ import pickle
 import sys
 
 
+"""
+This script is capable to plot the results of a single run,
+and it is also possible to plot multiple scenarios at once.
+Mean represents the improvement of the average fitness of the populations.
+Best represents the fitness of the best chromosome of one population. 
+"""
+
 ''' INSERT QUERY '''
 
-# if not using command line input
-if len(sys.argv) == 1:
-    run_name = 'heuristic_test'
-    grid_param = 'scenario'
-else:
-    grid_param = 'scenario'
+run_name = 'run' # set the name of the test to plot here
+
+
+# if using command line input
+if len(sys.argv) > 1:
     run_name = sys.argv[1] + '[%s, %s]'%(float(sys.argv[2]), float(sys.argv[3]))
 
 ''' PLOT FUNCTIONS '''
@@ -72,9 +78,12 @@ def plot(parameter, modus='best'):
     :param modus: can be 'mean' or 'best'
     """
     disctinction, vals, permutation = get_test(parameter)
+    print(vals)
 
     plot_helper(modus, disctinction, vals[0], parameter, permutation)
-    plot_helper(modus, disctinction, vals[1], parameter, permutation)
+
+    if len(vals) >= 2:
+        plot_helper(modus, disctinction, vals[1], parameter, permutation)
 
 
 def plot_helper(modus, tests, value, param_info, permutation):
@@ -102,7 +111,7 @@ def plot_helper(modus, tests, value, param_info, permutation):
         plt.gcf().clear()
 
 if __name__ == '__main__':
-    plot(grid_param, 'best')
-    plot(grid_param, 'mean')
+    plot('scenario', 'best')
+    plot('scenario', 'mean')
 
 
