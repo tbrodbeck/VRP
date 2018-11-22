@@ -12,7 +12,8 @@ import sys
 """
 This script is capable to plot the results of a single run,
 and it is also possible to plot multiple scenarios at once.
-Mean represents the improvement of the average fitness of the populations.
+
+Mean represents the improvement of the average fitness of the populations. 
 Best represents the fitness of the best chromosome of one population. 
 """
 

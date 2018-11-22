@@ -11,6 +11,11 @@ Main search function for the model
 It also comprises the all of the persistence functions.
 To use it, simply adapt the hyperparameters and run it.
 This scrips is also capable to perform grid-searches (but do not confuse grid search with the ikw-grid).
+
+Mean represents the improvement of the average fitness of the populations. 
+    These result are saved in RUNNAME_mean.csv
+Best represents the fitness of the best chromosome of one population. 
+    These result are saved in RUNNAME_best.csv
 """
 
 
