@@ -6,6 +6,6 @@ Optional files are the ikw_*.py files, used with the ikw-grid and final_plot.py,
 
 Additionally there is the Vehicle_Routing_Problem.pdf that contains a formal description and analysis of our code.
 
-In general, everyone of our group worked on several aspects the project.
+In general, everyone of our group worked on several aspects of the project.
 
 
