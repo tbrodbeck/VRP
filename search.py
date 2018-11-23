@@ -16,6 +16,9 @@ Mean represents the improvement of the average fitness of the populations.
     These result are saved in RUNNAME_mean.csv
 Best represents the fitness of the best chromosome of one population. 
     These result are saved in RUNNAME_best.csv
+    
+(This will additionally output a file with a representation of the solution, i.e. which vehicle delivers to 
+which costumer and it will also put out a dictionary-list of the test parameters in a .pickle format.)
 """
 
 
@@ -148,7 +151,6 @@ def gridsearch(dict_list, run_name):
 
     # deploy it
     count = 0
-    print(permutations)
     for v in permutations:
         count += 1
         print(run_name, count, 'of', nr_of_perms, ':')
