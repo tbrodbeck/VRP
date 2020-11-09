@@ -1,4 +1,7 @@
-This is our hand-in code of the final task of the course "Nature Inspired Algotrithms" by Nico Potyka.
+# Solver for the Vehicle Routing Problem
+This solution uses Ant Colony Optimization (ACO), a Nature Inspired Algorithm.
+
+## Project structure
 
 We added every file here, we have used for evalutation. Every file is commented and should be self-explanatory.
 Necessary files for deployment are model.py, AntColonyOptimizer.py, search.py and plotting.py - from which search.py contains the most central interface for deployment and persistence.
